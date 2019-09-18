@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Jorryt
+      comment: Initial schema
+      changes:
+        - createTable:
+            tableName: customer
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(512)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: account
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: account_number
+                  type: varchar(64)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: balance
+                  type: decimal
+                  constraints:
+                    nullable: false
+              - column:
+                  name: currency
+                  type: varchar(3)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: owner
+                  type: int
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_account_owner
+                    references: customer(id)
+        - createSequence:
+            sequenceName: customer_sequence_autoincrement
+            incrementBy: 50
+            startValue: 1000
+        - createSequence:
+            sequenceName: account_sequence_autoincrement
+            incrementBy: 50
+            startValue: 1000
